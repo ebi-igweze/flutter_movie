@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/data/movie.dart';
+import 'package:movie_app/details.dart';
 
 class MovieVerticalListItem extends StatelessWidget {
   final Movie movieItem;
@@ -8,24 +9,36 @@ class MovieVerticalListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Card(
-          elevation: 5,
-          margin: EdgeInsets.only(bottom: 15),
-          child: Row(
-            children: <Widget>[
-              _MovieImage(
-                imageUrl: movieItem.imageUrl,
-              ),
-              _MovieTitleAndDescription(
-                movieTitle: movieItem.title,
-                movieDescription: movieItem.description,
-              ),
-            ],
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(
+        MovieDetails.routeName,
+        arguments: {
+          'movie': movieItem,
+        },
+      ),
+      child: Column(
+        key: Key(movieItem.title),
+        children: <Widget>[
+          Card(
+            elevation: 5,
+            margin: EdgeInsets.only(bottom: 15),
+            child: Row(
+              children: <Widget>[
+                Hero(
+                  tag: movieItem.id,
+                  child: _MovieImage(
+                    imageUrl: movieItem.imageUrl,
+                  ),
+                ),
+                _MovieTitleAndDescription(
+                  movieTitle: movieItem.title,
+                  movieDescription: movieItem.description,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

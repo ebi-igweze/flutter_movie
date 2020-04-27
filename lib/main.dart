@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/details.dart';
 
 import 'home.dart';
 
@@ -11,10 +12,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Movie App',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.teal,
         backgroundColor: Colors.white,
       ),
       home: MyHomePage(title: 'Movies X'),
+      routes: {
+        MovieDetails.routeName: (ctx) => MovieDetails(),
+      },
     );
   }
 }

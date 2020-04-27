@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/data/movie.dart';
+import 'package:movie_app/details.dart';
 
 class MovieHorizontalListItem extends StatelessWidget {
   final Movie movieItem;
@@ -9,25 +10,37 @@ class MovieHorizontalListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: <Widget>[
-          // movie cover image
-          _MovieImage(
-            imageUrl: movieItem.imageUrl,
-          ),
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(
+        MovieDetails.routeName,
+        arguments: {
+          'movie': movieItem,
+        },
+      ),
+      child: Container(
+        key: Key(movieItem.title),
+        width: 160,
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            // movie cover image
+            Hero(
+              tag: movieItem.id,
+              child: _MovieImage(
+                imageUrl: movieItem.imageUrl,
+              ),
+            ),
 
-          SizedBox(
-            height: 10,
-          ),
+            SizedBox(
+              height: 10,
+            ),
 
-          // movie title
-          _MovieTitle(
-            movieTitle: movieItem.title,
-          )
-        ],
+            // movie title
+            _MovieTitle(
+              movieTitle: movieItem.title,
+            )
+          ],
+        ),
       ),
     );
   }
