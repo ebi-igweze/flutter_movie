@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/data/movie.dart';
 import 'package:movie_app/widgets/movie_horizontal_list_item.dart';
+import 'package:provider/provider.dart';
 
 class RecommendedMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var movies = Provider.of<MovieData>(context).recommendedMovies;
+
     return Column(
       children: <Widget>[
         Padding(
@@ -30,13 +34,12 @@ class RecommendedMovies extends StatelessWidget {
         ),
         Container(
           height: 280,
-          child: ListView(
+          child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              MovieHorizontalListItem(),
-              MovieHorizontalListItem(),
-              MovieHorizontalListItem(),
-            ],
+            itemCount: movies.length,
+            itemBuilder: (ctx, index) => MovieHorizontalListItem(
+              movieItem: movies[index],
+            ),
           ),
         )
       ],

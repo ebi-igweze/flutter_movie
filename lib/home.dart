@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/data/movie.dart';
 import 'package:movie_app/widgets/best_movies.dart';
 import 'package:movie_app/widgets/popular_movies.dart';
 import 'package:movie_app/widgets/recommended_movies.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -26,14 +28,17 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // recommended section
-            RecommendedMovies(),
-            BestMovies(),
-            PopularMovies(),
-          ],
+      body: Provider(
+        create: (ctx) => movieData,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              // recommended section
+              RecommendedMovies(),
+              BestMovies(),
+              PopularMovies(),
+            ],
+          ),
         ),
       ),
     );

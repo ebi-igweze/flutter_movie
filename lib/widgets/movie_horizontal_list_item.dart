@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/data/movie.dart';
 
 class MovieHorizontalListItem extends StatelessWidget {
+  final Movie movieItem;
+
+  MovieHorizontalListItem({this.movieItem});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,14 +15,18 @@ class MovieHorizontalListItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           // movie cover image
-          _MovieImage(),
+          _MovieImage(
+            imageUrl: movieItem.imageUrl,
+          ),
 
           SizedBox(
             height: 10,
           ),
 
           // movie title
-          _MovieTitle()
+          _MovieTitle(
+            movieTitle: movieItem.title,
+          )
         ],
       ),
     );
@@ -25,6 +34,10 @@ class MovieHorizontalListItem extends StatelessWidget {
 }
 
 class _MovieImage extends StatelessWidget {
+  final String imageUrl;
+
+  _MovieImage({this.imageUrl});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -35,8 +48,7 @@ class _MovieImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(
-                "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"),
+            image: NetworkImage(imageUrl),
           ),
         ),
       ),
@@ -45,10 +57,14 @@ class _MovieImage extends StatelessWidget {
 }
 
 class _MovieTitle extends StatelessWidget {
+  final String movieTitle;
+
+  _MovieTitle({this.movieTitle});
+
   @override
   Widget build(BuildContext context) {
     return Text(
-      "Infinity War",
+      movieTitle,
       textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,

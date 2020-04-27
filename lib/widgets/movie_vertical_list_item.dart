@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/data/movie.dart';
 
 class MovieVerticalListItem extends StatelessWidget {
+  final Movie movieItem;
+
+  MovieVerticalListItem({this.movieItem});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Card(
-          elevation: 10,
+          elevation: 5,
+          margin: EdgeInsets.only(bottom: 15),
           child: Row(
             children: <Widget>[
-              _MovieImage(),
-              _MovieTitleAndDescription(),
+              _MovieImage(
+                imageUrl: movieItem.imageUrl,
+              ),
+              _MovieTitleAndDescription(
+                movieTitle: movieItem.title,
+                movieDescription: movieItem.description,
+              ),
             ],
           ),
         ),
@@ -20,6 +31,10 @@ class MovieVerticalListItem extends StatelessWidget {
 }
 
 class _MovieImage extends StatelessWidget {
+  final String imageUrl;
+
+  _MovieImage({this.imageUrl});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +48,7 @@ class _MovieImage extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
-            "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg",
+            imageUrl,
           ),
         ),
       ),
@@ -42,6 +57,14 @@ class _MovieImage extends StatelessWidget {
 }
 
 class _MovieTitleAndDescription extends StatelessWidget {
+  final String movieTitle;
+  final String movieDescription;
+
+  _MovieTitleAndDescription({
+    this.movieTitle,
+    this.movieDescription,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +75,7 @@ class _MovieTitleAndDescription extends StatelessWidget {
         children: <Widget>[
           // title
           Text(
-            "Avengers Endgame",
+            movieTitle,
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -62,9 +85,7 @@ class _MovieTitleAndDescription extends StatelessWidget {
           // description
           Container(
             width: 240,
-            child: Text(
-              'After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse...',
-            ),
+            child: Text(movieDescription),
           ),
         ],
       ),
